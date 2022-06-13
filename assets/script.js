@@ -1,4 +1,4 @@
-$(".search").click(function(e){
+$(".submit").click(function(e){
     e.preventDefault();
     const inputVal = input.value
 })

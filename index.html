@@ -13,18 +13,28 @@
         <h1 class = "text-center text-warning" >Weather APP</h1>
     </div>
     <div class = "container-fluid">
-        <div class = "row align-items-start">
+        <div class = "row">
             <div class="col-sm-3">
                 <form>
-                    <input type="text" id="city-search" placeholder="Search for a city">
-                    <button class="search">Search</button>
+                    <div class="input-group m-2 pr-3">
+                    <input type="text" id="searchInput" placeholder="Search for a city">
+                    <button class="submit" id="searchBtn">Search</button>
+                    </div>
                 </form>
+            <div class="w-100">
+                <ul class="group-list cityList mx-3 mt-2"></ul>
+                Display local storage here
             </div>
-            <div class="col forecast">
-                Display results here
             </div>
-            <div class="row">
-                Display local storage results here
+            <div class="col-md-9">
+                <div class="card m-2">
+                    <div class="card-body weatherToday"></div>
+                Display search results here
+                </div>
+                <div class="m-2">
+                    <h2>5 Day Forecast</h2>
+                    <div class="forecast"></div>
+                </div>
             </div>
         </div>
     </div>
