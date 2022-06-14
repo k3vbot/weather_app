@@ -23,15 +23,18 @@ function init() {
 
     if (cityList) {
         let thisCity = cityList[cityList.length - 1]
-        getTheWeather(thisCity, id);
-        getForecast(thisCity, id);
+        getTheWeather(thisCity, weatherAPIKey);
+        getForecast(thisCity, weatherAPIKey);
     }
+}
+
+function getTheWeather(thisCity, id) {
+    const queryURL = 'https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&appid=${weatherAPIKey}&units=imperial';
 }
 
 
 
 
-const queryURL = 'https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&appid=${weatherAPIKey}&units=imperial';
 
 
 
