@@ -11,11 +11,30 @@ function buildCityList() {
         $(".cityList").prepend($('<button class = "list-group-item list-group-item-action cityBtn" data-city="${city}">${city}</button>'));
     })
 }
+
+function init() {
+    let cityStorage = JSON.parse(localStorage.getItem("cities"));
+
+    if (cityStorage !== null) {
+        cityList = storedCities;
+    }
+
+    buildCityList();
+
+    if (cityList) {
+        let thisCity = cityList[cityList.length - 1]
+        getTheWeather(thisCity, id);
+        getForecast(thisCity, id);
+    }
+}
+
+
+
+
 const queryURL = 'https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&appid=${weatherAPIKey}&units=imperial';
 
 
 
 $(".submit").click(function(e){
     e.preventDefault();
-    const inputVal = input.value
 })
