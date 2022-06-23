@@ -1,7 +1,7 @@
 //create variable to store API key
 const weatherAPIKey = "4523ea8a862fd071298a6b39372ecf26";
 //create empty string for cities
-let cityList = "";
+let cityList = [];
 
 //set items in local storage
 function cityStorage() {
@@ -85,6 +85,7 @@ function getForecast(thisCity, weatherAPIKey) {
     })
 }
 
+// function to get UV data
 function getUVIndex(weatherAPIKey, cityLat, cityLong) {
     let uvUrl = `https://api.openweathermap.org/data/2.5/uvi?lat=${cityLat}&lon=${cityLong}&appid=${weatherAPIKey}`;
 
@@ -92,16 +93,32 @@ function getUVIndex(weatherAPIKey, cityLat, cityLong) {
         url: uvUrl,
         method: "GET"
     }).then(function (data) {
-        $(".weatherToday")
+        $(".weatherToday").append(`<p>UV Index: <span class="badge badge-info p-2">${data.value}</span></p>`);
     })
 }
 
+function displayCityWeather() {
+    let thisCity = $(this).attr("data-city");
 
+    $(".weatherToday").empty();
+    getCurrentWeather(thisCity, weatherAPIKey);
 
+    $(".forecast").empty();
+    getForecast(thisCity, weatherAPIKey);
+}
 
+init();
 
 
 
 $(".submit").click(function(e){
     e.preventDefault();
+    console.log("im a button");
+    let newCity = $("#searchInput").val().trim();
+    cityList.push(newCity);
+    buildCityList();
+    storedCities();
+    $("#searchInput").val("");
 })
+
+$(".cityList").on("click", ".cityBtn", displayCityWeather);
