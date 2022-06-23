@@ -57,6 +57,44 @@ function getTheWeather(thisCity, weatherAPIKey) {
     })
 }
 
+//5 day forecast
+function getForecast(thisCity, weatherAPIKey) {
+    let forecastURL = `https://api.openweathermap.org/data/2.5/forcast?q=${thisCity}&units=imperial&appid=${weatherAPIKey}`;
+
+    $.ajax({
+        url: forecastURL,
+        method: "GET"
+    }).then(function(data){
+        for (i = 0; i < data.list.length; i++) {
+            if (data.list[i].dt_txt.search("15:00:00") != -1) {
+                let forecastDate = data.list[i];
+                $(".forecast").append(
+                    `<div class="card bg-primary shadow m-4">
+                        <div class="card-body">
+                            <h4 class="card-title">${(new Date(1000 * forecastDate.dt).getUTCMonth()) + 1}/${new Date(1000 * forecastDate.dt).getUTCDate()}/${new Date(1000 * forecastDate.dt).getUTCFullYear()}</h4>
+                            <div class="card-text">
+                                <img src="http://openweathermap.org/img/w/${forecastDate.weather[0].icon}.png">
+                                <p class="card-text">Temp: ${forecastDate.maint.temp} &degF</p>
+                                <p class="card-text">Humidity ${forecastDate.main.humidity} %</p>
+                            </div>
+                        </div>
+                    </div>`
+                );
+            }    
+        }
+    })
+}
+
+function getUVIndex(weatherAPIKey, cityLat, cityLong) {
+    let uvUrl = `https://api.openweathermap.org/data/2.5/uvi?lat=${cityLat}&lon=${cityLong}&appid=${weatherAPIKey}`;
+
+    $.ajax({
+        url: uvUrl,
+        method: "GET"
+    }).then(function (data) {
+        $(".weatherToday")
+    })
+}
 
 
 
