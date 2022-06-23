@@ -1,5 +1,5 @@
 //create variable to store API key
-const weatherAPIKey = "4523ea8a862fd071298a6b39372ecf26";
+const weatherAPIKey = "3e538646a50b1b127aaf88e7856028de";
 //create empty string for cities
 let cityList = [];
 
