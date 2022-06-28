@@ -1,7 +1,7 @@
 //create variable to store API key
-const weatherAPIKey = "3e538646a50b1b127aaf88e7856028de";
+const weatherAPIKey = "3ee538646a50b1b127aaf88e7856028d";
 //create empty string for cities
-let cityList = [];
+let cityList = [''];
 
 //set items in local storage
 function cityStorage() {
@@ -34,7 +34,7 @@ function init() {
 
 //build url to get the info from weather API and display info
 function getTheWeather(thisCity, weatherAPIKey) {
-    const queryURL = 'https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&appid=${weatherAPIKey}&units=imperial';
+    const queryURL = 'https://api.openweathermap.org/data/3.0/onecall?${inputVal}&appid=${weatherAPIKey}&units=imperial';
     let cityLat;
     let cityLong;
 
@@ -59,7 +59,7 @@ function getTheWeather(thisCity, weatherAPIKey) {
 
 //5 day forecast
 function getForecast(thisCity, weatherAPIKey) {
-    let forecastURL = `https://api.openweathermap.org/data/2.5/forcast?q=${thisCity}&units=imperial&appid=${weatherAPIKey}`;
+    let forecastURL = `https://api.openweathermap.org/data/3.0/forcast?q=${thisCity}&units=imperial&appid=${weatherAPIKey}`;
 
     $.ajax({
         url: forecastURL,
@@ -87,7 +87,7 @@ function getForecast(thisCity, weatherAPIKey) {
 
 // function to get UV data
 function getUVIndex(weatherAPIKey, cityLat, cityLong) {
-    let uvUrl = `https://api.openweathermap.org/data/2.5/uvi?lat=${cityLat}&lon=${cityLong}&appid=${weatherAPIKey}`;
+    let uvUrl = `https://api.openweathermap.org/data/3.0/uvi?lat=${cityLat}&lon=${cityLong}&appid=${weatherAPIKey}`;
 
     $.ajax({
         url: uvUrl,
@@ -117,7 +117,7 @@ $(".submit").click(function(e){
     let newCity = $("#searchInput").val().trim();
     cityList.push(newCity);
     buildCityList();
-    storedCities();
+    cityStorage();
     $("#searchInput").val("");
 })
 
