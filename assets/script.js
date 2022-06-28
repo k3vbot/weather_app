@@ -92,7 +92,7 @@ function getUVIndex(weatherAPIKey, cityLat, cityLong) {
         url: uvUrl,
         method: "GET"
     }).then(function (data) {
-        $(".weatherToday").append(`<p>UV Index: <span class="badge badge-danger p-2">${data.value}</span></p>`);
+        $(".weatherToday").append(`<p>UV Index: ${data.value}</p>`);
     })
 }
 
