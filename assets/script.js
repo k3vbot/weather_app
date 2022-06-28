@@ -20,7 +20,7 @@ function init() {
     let cityStorage = JSON.parse(localStorage.getItem("cities"));
 
     if (cityStorage !== null) {
-        cityList = storedCities;
+        cityList = cityStorage;
     }
 
     buildCityList();
@@ -45,7 +45,6 @@ function getTheWeather(thisCity, weatherAPIKey) {
         $(".weatherToday").append(
             `<div class = "row m-1">
                 <h2>${data.name} (${(new Date(1000 * data.dt).getUTCMonth()) +1}/${(new Date(1000 * data.dt).getUTCDate()) -1}/${(new Date(1000 * data.dt).getUTCFullYear())})</h2>
-                <img src = "http://openweather.org/img/w/${data.weather[0].icon}.png">
                 </div> `
         )
         $(".weatherToday").append(`<p> Temperature: ${data.main.temp}&degF</p>`)
@@ -59,7 +58,7 @@ function getTheWeather(thisCity, weatherAPIKey) {
 
 //5 day forecast
 function getForecast(thisCity, weatherAPIKey) {
-    let forecastURL = `https://api.openweathermap.org/data/2.5/forcast?q=${thisCity}&units=imperial&appid=${weatherAPIKey}`;
+    let forecastURL = `https://api.openweathermap.org/data/2.5/forecast?q=${thisCity}&units=imperial&appid=${weatherAPIKey}`;
 
     $.ajax({
         url: forecastURL,
@@ -74,7 +73,7 @@ function getForecast(thisCity, weatherAPIKey) {
                             <h4 class="card-title">${(new Date(1000 * forecastDate.dt).getUTCMonth()) + 1}/${new Date(1000 * forecastDate.dt).getUTCDate()}/${new Date(1000 * forecastDate.dt).getUTCFullYear()}</h4>
                             <div class="card-text">
                                 <img src="http://openweathermap.org/img/w/${forecastDate.weather[0].icon}.png">
-                                <p class="card-text">Temp: ${forecastDate.maint.temp} &degF</p>
+                                <p class="card-text">Temp: ${forecastDate.main.temp} &degF</p>
                                 <p class="card-text">Humidity ${forecastDate.main.humidity} %</p>
                             </div>
                         </div>
@@ -93,7 +92,7 @@ function getUVIndex(weatherAPIKey, cityLat, cityLong) {
         url: uvUrl,
         method: "GET"
     }).then(function (data) {
-        $(".weatherToday").append(`<p>UV Index: <span class="badge badge-info p-2">${data.value}</span></p>`);
+        $(".weatherToday").append(`<p>UV Index: <span class="badge badge-danger p-2">${data.value}</span></p>`);
     })
 }
 
@@ -101,7 +100,7 @@ function displayCityWeather() {
     let thisCity = $(this).attr("data-city");
 
     $(".weatherToday").empty();
-    getCurrentWeather(thisCity, weatherAPIKey);
+    getTheWeather(thisCity, weatherAPIKey);
 
     $(".forecast").empty();
     getForecast(thisCity, weatherAPIKey);
