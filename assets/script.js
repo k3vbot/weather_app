@@ -74,7 +74,8 @@ function getForecast(thisCity, weatherAPIKey) {
                             <div class="card-text">
                                 <img src="http://openweathermap.org/img/w/${forecastDate.weather[0].icon}.png">
                                 <p class="card-text">Temp: ${forecastDate.main.temp} &degF</p>
-                                <p class="card-text">Humidity ${forecastDate.main.humidity} %</p>
+                                <p class="card-text">Humidity: ${forecastDate.main.humidity} %</p>
+                                <p class="card-text">Wind: ${forecastDate.wind.speed}mph</p>
                             </div>
                         </div>
                     </div>`
